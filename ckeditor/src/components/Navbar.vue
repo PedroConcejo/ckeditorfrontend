@@ -1,31 +1,21 @@
 
 <template>
-  <v-card color="grey lighten-4" flat tile>
-    <v-toolbar dense>
-      <v-app-bar-nav-icon></v-app-bar-nav-icon>
-
+     <v-toolbar  color="teal lighten-3" dark>
+        <v-btn icon @click="back">
+        <v-icon>mdi-arrow-left</v-icon>
+      </v-btn>
       <v-toolbar-title>Reboot Academy Task App</v-toolbar-title>
 
       <v-spacer></v-spacer>
 
+      <v-btn icon @click="create">
+        <v-icon>mdi-table-edit</v-icon>
+      </v-btn>
       <v-btn icon @click="logout">
         <v-icon>mdi-exit-to-app</v-icon>
       </v-btn>
 
-      <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
-
-      <v-btn icon @click="create">
-        <v-icon>mdi-table-edit</v-icon>
-      </v-btn>
-
-      <v-btn icon>
-        <v-icon>mdi-dots-vertical</v-icon>
-      </v-btn>
     </v-toolbar>
-  </v-card>
-
 </template>
 
 <script>
@@ -41,6 +31,9 @@ export default {
     },
     create () {
       this.$router.push('/create')
+    },
+    back () {
+      this.$router.go(-1)
     }
   }
 }

@@ -1,7 +1,7 @@
 <template>
     <div id="app">
     <Navbar />
-    <v-row justify="space-around">
+     <v-row justify="space-around">
        <v-col cols="8">
         <ckeditor :editor="editor" v-model="editorData" :config="editorConfig"></ckeditor>
      <v-card-actions>
@@ -25,6 +25,7 @@ export default {
     return {
       tittle: '',
       picker: new Date().toISOString().substr(0, 10),
+      task: null,
       editor: ClassicEditor,
       editorData: '<p>Content of the editor.</p>',
       editorConfig: {
@@ -37,17 +38,20 @@ export default {
   },
   methods: {
     save () {
-      const newtask = {
+      const taskid = this.$route.params.taskid
+      const edittask = {
         tittle: this.picker,
-        task: this.editorData,
-        color: '#' + Math.floor(Math.random() * 16777215).toString(16)
+        task: this.editorData
       }
-      APIServices.createTask(newtask)
+      APIServices.updateTask(taskid, edittask)
         .then(response => {
           this.$router.push('/home')
         })
         .catch(err => console.log(err))
     }
+  },
+  mounted () {
+    APIServices.getTaskById(this.$route.params.taskid).then(res => (this.editorData = res.task))
   }
 }
 

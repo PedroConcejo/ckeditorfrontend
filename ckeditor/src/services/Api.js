@@ -31,13 +31,39 @@ export default {
     })
     return response.data
   },
-  async getMyTask (token) {
+  async getMyTask () {
     const response = await API.get('/me', {
       headers: {
-        token: token
+        token: localStorage.getItem('token')
+
+      }
+    })
+    return response.data
+  },
+  async deleteTask (taskid) {
+    const response = await API.delete(`/me/${taskid}`, {
+      headers: {
+        token: localStorage.getItem('token')
+      }
+    })
+    return response.data
+  },
+  async getTaskById (taskid) {
+    const response = await API.get(`/me/${taskid}`, {
+      headers: {
+        token: localStorage.getItem('token')
+      }
+    })
+    return response.data
+  },
+  async updateTask (taskid, edittask) {
+    const response = await API.put(`/me/${taskid}`, {
+      ...edittask
+    }, {
+      headers: {
+        token: localStorage.getItem('token')
       }
     })
     return response.data
   }
-
 }
